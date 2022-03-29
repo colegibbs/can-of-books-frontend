@@ -1,7 +1,9 @@
 import React from 'react';
-import { Navbar, NavItem, Button } from 'react-bootstrap';
+import { Navbar, NavItem } from 'react-bootstrap';
 import { Link } from "react-router-dom";
+import LoginButton from './LoginButton';
 import './Header.css';
+import LogoutButton from './LogoutButton';
 
 class Header extends React.Component {
   render() {
@@ -17,9 +19,9 @@ class Header extends React.Component {
       {this.props.user
         ?
 
-        <Button onClick={this.props.onLogout}>Logout</Button>
+        <LogoutButton onLogout={this.props.onLogout}/>
         :
-        <Button onClick={this.props.onLogin}>Login</Button>
+        <LoginButton onLogin={this.props.onLogin}/>
 
       }
 

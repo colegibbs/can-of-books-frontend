@@ -1,8 +1,8 @@
 import React from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import Carousel from 'react-bootstrap/Carousel'
 
-let SERVER = process.env.REACT_APP_SERVER;
+// let SERVER = process.env.REACT_APP_SERVER;
 
 class BestBooks extends React.Component {
   // constructor(props) {

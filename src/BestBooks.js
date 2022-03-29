@@ -5,23 +5,23 @@ import Carousel from 'react-bootstrap/Carousel'
 let SERVER = process.env.REACT_APP_SERVER;
 
 class BestBooks extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      books: []
-    }
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     books: []
+  //   }
+  // }
 
-  getBooks = async () => {
-    try {
-      let url = `${SERVER}/books`
-      let books = await axios.get(url);
-      this.setState({
-        books: books.data,
-      })
-    } catch(error) {
-      console.log(error);
-    }
+  // getBooks = async () => {
+  //   try {
+  //     let url = `${SERVER}/books`
+  //     let books = await axios.get(url);
+  //     this.setState({
+  //       books: books.data,
+  //     })
+  //   } catch(error) {
+  //     console.log(error);
+  //   }
     // let apiUrl = `${SERVER}/books`
     // if(title) {
     //   apiUrl += `?title = ${title}`
@@ -35,15 +35,15 @@ class BestBooks extends React.Component {
     // } catch(error) {
     //   console.log(error);
     // } 
-  }
+  // }
 
   /* TODO: Make a GET request to your API to fetch books for the logged in user  */
-  componentDidMount() {
-    this.getBooks();
-  }
+  // componentDidMount() {
+  //   this.getBooks();
+  // }
 
   render() {
-    let books = this.state.books.map((book,idx) =>{ 
+    let books = this.props.books.map((book,idx) =>{ 
         return(
         <Carousel.Item key={idx}>
         <img
@@ -68,12 +68,12 @@ class BestBooks extends React.Component {
         
         )
     })
-    console.log(this.state.books);
+    console.log(this.props.books);
     /* TODO: render user's books in a Carousel */
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-      {this.state.books.length > 0 
+      {this.props.books.length > 0 
       ?        
         <Carousel>
           {books}

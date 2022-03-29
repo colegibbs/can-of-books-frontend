@@ -3,6 +3,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Profile from './Profile'
 import LoginForm from './LoginForm';
+import BookFormModal from './BookFormModal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
@@ -10,16 +11,32 @@ import {
   Route
 } from "react-router-dom";
 import BestBooks from './BestBooks';
+import AddBookButton from './AddBookButton';
+import axios from 'axios';
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      books:[],
       user: null,
       userName: '',
       email: '',
       loginForm: false,
+      showBookForm: false,
+    }
+  }
+
+  getBooks = async () => {
+    try {
+      let url = `${process.env.REACT_APP_SERVER}/books`
+      let books = await axios.get(url);
+      this.setState({
+        books: books.data,
+      })
+    } catch(error) {
+      console.log(error);
     }
   }
 
@@ -42,14 +59,45 @@ class App extends React.Component {
       email: email,
     })
   }
+
+  addBookHandler = () => {
+    console.log('hit');
+    this.setState({
+      showBookForm: true,
+    })
+  }
+
+  addBookRemove =() => {
+    this.setState({
+      showBookForm: false,
+    })
+  }
+
+  postBook = async (newBook) => {
+    try {
+      let url = `${process.env.REACT_APP_SERVER}/books`;
+      let createdBook = await axios.post(url, newBook);
+      this.setState({
+        books: [...this.state.books, createdBook.data],
+      })
+    } catch(error) {
+      console.log('we have an error:', error.response.data);
+    }
+  }
+
+  componentDidMount() {
+    this.getBooks();
+  }
   
 
   render() {
     return (
       <>
         <Router>
-          <Header user={this.state.user} onLogout={this.logoutHandler} onLogin={this.loginHandler} />
-          <BestBooks/>
+          <Header user={this.state.user} onLogout={this.logoutHandler} onLogin={this.loginHandler}/>
+          <BestBooks books={this.state.books}/>
+          <BookFormModal show={this.state.showBookForm} addBookRemove={this.addBookRemove} postBook={this.postBook}/>
+          <AddBookButton addBookHandler={this.addBookHandler}/>
           <Switch>
             <Route exact path="/">
               {/* <BestBooks/> */}

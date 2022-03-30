@@ -116,7 +116,7 @@ class App extends React.Component {
     return (
       <>
         <Router>
-          <Header user      =        {this.state.user} onLogout={this.logoutHandler} onLogin={this.loginHandler}/>
+          <Header user={this.state.user} onLogout={this.logoutHandler} onLogin={this.loginHandler}/>
           <BestBooks
            books={this.state.books}
            deleteBook={this.deleteBook}

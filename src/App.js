@@ -13,6 +13,7 @@ import {
 import BestBooks from './BestBooks';
 import AddBookButton from './AddBookButton';
 import axios from 'axios';
+import UpdateModal from './UpdateModal';
 
 class App extends React.Component {
 
@@ -25,6 +26,7 @@ class App extends React.Component {
       email: null,
       loginForm: false,
       showBookForm: false,
+      showUpdateForm: false,
       loggedIn: false
       
     }
@@ -106,6 +108,41 @@ class App extends React.Component {
     }
   }
 
+  updateForm = () => {
+    this.setState({
+      showUpdateForm: true,
+    });
+  }
+
+  hideUpdateForm = () => {
+    this.setState({
+      showUpdateForm: false,
+    });
+  }
+
+  updateBook = async (updatedBook) => {
+    try{
+      let id = updatedBook._id;
+      let url = `${process.env.REACT_APP_SERVER}/books/${id}`;
+      let rebornBook = await axios.put(url, updatedBook);
+      let newBooks = this.state.books.map(book => {
+        return book._id === updatedBook._id ? rebornBook.data : book;
+      })
+      this.setState({
+        books: newBooks,
+      });
+    } catch(error) {
+      console.log('we have an error:', error.response.data);
+    }
+  }
+
+  idAndVForUpdate = (id, v) => {
+    this.setState({
+      id: id,
+      v: v,
+    });
+  }
+
   componentDidMount() {
     this.getBooks();
   }
@@ -121,9 +158,17 @@ class App extends React.Component {
            books={this.state.books}
            deleteBook={this.deleteBook}
            loggedIn={this.state.loggedIn}
-           
+           updateForm={this.updateForm}
            />
           <BookFormModal show={this.state.showBookForm} addBookRemove={this.addBookRemove} postBook={this.postBook}/>
+          <UpdateModal 
+            show={this.state.showUpdateForm} 
+            onHide={this.hideUpdateForm} 
+            updateBook={this.updateBook}
+            id={this.state.id}
+            v={this.state.v}
+            idAndVForUpdate={this.idAndVForUpdate}
+          />
           <AddBookButton addBookHandler={this.addBookHandler}/>
           <Switch>
             <Route exact path="/">

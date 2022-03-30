@@ -1,6 +1,7 @@
 import React from 'react';
 // import axios from 'axios';
 import Carousel from 'react-bootstrap/Carousel'
+import UpdateButton from './UpdateButton';
 import DeleteBookButton from './DeleteBookButton';
 
 // let SERVER = process.env.REACT_APP_SERVER;
@@ -81,6 +82,13 @@ class BestBooks extends React.Component {
         deleteBook={this.props.deleteBook}
         id={book._id}
         loggedIn={this.props.loggedIn}
+        />
+
+        <UpdateButton
+          updateForm={this.props.updateForm}
+          loggedIn={this.props.loggedIn}
+          id={book._id}
+          __v={bookd.__v}
         />
       </li>
     )

@@ -7,42 +7,6 @@ import DeleteBookButton from './DeleteBookButton';
 // let SERVER = process.env.REACT_APP_SERVER;
 
 class BestBooks extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     books: []
-  //   }
-  // }
-
-  // getBooks = async () => {
-  //   try {
-  //     let url = `${SERVER}/books`
-  //     let books = await axios.get(url);
-  //     this.setState({
-  //       books: books.data,
-  //     })
-  //   } catch(error) {
-  //     console.log(error);
-  //   }
-    // let apiUrl = `${SERVER}/books`
-    // if(title) {
-    //   apiUrl += `?title = ${title}`
-    // }
-    // console.log(apiUrl);
-    // try {
-    //   const response = await axios.get(apiUrl);
-    //   this.setState({
-    //     books: response.data,
-    //   });
-    // } catch(error) {
-    //   console.log(error);
-    // } 
-  // }
-
-  /* TODO: Make a GET request to your API to fetch books for the logged in user  */
-  // componentDidMount() {
-  //   this.getBooks();
-  // }
 
   render() {
     let books = this.props.books.map((book, idx) =>{ 
@@ -88,7 +52,8 @@ class BestBooks extends React.Component {
           updateForm={this.props.updateForm}
           loggedIn={this.props.loggedIn}
           id={book._id}
-          __v={bookd.__v}
+          __v={book.__v}
+          book={book}
         />
       </li>
     )

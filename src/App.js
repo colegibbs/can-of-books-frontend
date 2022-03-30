@@ -139,7 +139,6 @@ class App extends React.Component {
   bookForUpdate = (book) => {
     this.setState({
       book: book
-
     });
   }
 
@@ -159,6 +158,7 @@ class App extends React.Component {
            deleteBook={this.deleteBook}
            loggedIn={this.state.loggedIn}
            updateForm={this.updateForm}
+           bookForUpdate={this.bookForUpdate}
            />
           <BookFormModal show={this.state.showBookForm} addBookRemove={this.addBookRemove} postBook={this.postBook}/>
           <UpdateModal 
@@ -166,8 +166,7 @@ class App extends React.Component {
             show={this.state.showUpdateForm} 
             onHide={this.hideUpdateForm} 
             updateBook={this.updateBook}
-            bookForUpdate={this.bookForUpdate}
-            book={this.book}
+            book={this.state.book}
           />
           <AddBookButton addBookHandler={this.addBookHandler}/>
           <Switch>

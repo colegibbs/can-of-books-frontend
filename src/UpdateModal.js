@@ -10,14 +10,15 @@ class UpdateModal extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let updatedBook = {
-      title: e.target.title.value,
-      description: e.target.description.value,
-      status: e.target.status.checked,
-      email: e.target.email.value,
-      _id: this.props.id,
-      __v: this.props.v
+      title: e.target.title.value || this.props.book.title,
+      description: e.target.description.value || this.props.book.description,
+      status: e.target.status.checked || this.props.book.status,
+      email: e.target.email.value || this.props.book.email,
+      _id: this.props.book._id,
+      __v: this.props.book.__v
     }
     this.props.updateBook(updatedBook);
+    this.props.onHide();
   }
 
   render() {
@@ -27,22 +28,22 @@ class UpdateModal extends React.Component {
           <Modal.Title>Update Book</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={this.}>
+          <Form onSubmit={this.handleSubmit}>
             <Form.Group controlId="title">
               <Form.Label>
                 Book Title
               </Form.Label>
-              <Form.Control type="text" />
+              <Form.Control type="text"/>
             </Form.Group>
 
             <Form.Group controlId="description">
               <Form.Label>
                 Book Description
               </Form.Label>
-              <Form.Control type="text" />
+              <Form.Control type="text"/>
             </Form.Group>
 
-            <Form.Group controlId="read">
+            <Form.Group controlId="status">
               <Form.Check type="checkbox" label="Read"/>
             </Form.Group>
 
@@ -50,7 +51,7 @@ class UpdateModal extends React.Component {
               <Form.Label>
                 Email
               </Form.Label>
-              <Form.Control type="email" />
+              <Form.Control type="email"/>
             </Form.Group>
             <Button type="submit" variant="dark">Update</Button>
           </Form>

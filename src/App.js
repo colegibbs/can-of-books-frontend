@@ -32,7 +32,6 @@ class App extends React.Component {
     }
   }
 
-
   loginHandler = (user) => {
     this.setState({
       user: 'user profile',
@@ -50,12 +49,15 @@ class App extends React.Component {
   }
 
   loginFormHandler = (userName, email) => {
-    this.setState({
-      userName: userName,
-      email: email,
-      loginForm: false,
-      loggedIn: true
-    })
+    if (userName && email) {
+      this.setState({
+        userName: userName,
+        email: email ,
+        loginForm: false,
+        loggedIn: true
+      })
+    } 
+
   }
 
   addBookHandler = () => {
@@ -182,7 +184,10 @@ class App extends React.Component {
 
           {this.state.loginForm
           ?
-          <LoginForm loginFormHandler={this.loginFormHandler}/>
+          <LoginForm 
+          userName={this.state.userName}
+          loginFormHandler={this.loginFormHandler}
+          />
           :
           ''
           }

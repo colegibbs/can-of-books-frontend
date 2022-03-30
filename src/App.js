@@ -85,6 +85,19 @@ class App extends React.Component {
     }
   }
 
+  deleteBook = async (id) => {
+    try{
+      let url = `&{process.env.REACT_APP_SERVER}/books/${id}`;
+      await axios.delete(url);
+      let updatedBooks = this.state.books.filter(book => book._id !== id);
+      this.setState({
+        books: updatedBooks  
+      })
+    } catch(error) {
+      console.log('we have an error:', error.response.data);
+    }
+  }
+
   componentDidMount() {
     this.getBooks();
   }
@@ -95,7 +108,12 @@ class App extends React.Component {
       <>
         <Router>
           <Header user={this.state.user} onLogout={this.logoutHandler} onLogin={this.loginHandler}/>
-          <BestBooks books={this.state.books}/>
+          <BestBooks
+           books={this.state.books}
+           deleteBook={this.deleteBook}
+           
+           
+           />
           <BookFormModal show={this.state.showBookForm} addBookRemove={this.addBookRemove} postBook={this.postBook}/>
           <AddBookButton addBookHandler={this.addBookHandler}/>
           <Switch>

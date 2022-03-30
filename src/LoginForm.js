@@ -36,14 +36,14 @@ class LoginForm extends Component {
           <Form.Label>
             Username
           </Form.Label>
-          <Form.Control type="text" placeholder="Enter Username" onInput={this.usernameHandler}/>
+          <Form.Control type="text" placeholder="Enter Username" onInput={this.usernameHandler} required={true}/>
         </Form.Group>
 
         <Form.Group controlId='email'>
           <Form.Label>
             Email
           </Form.Label>
-          <Form.Control type="text" placeholder="Enter Email" onInput={this.emailHandler}/>
+          <Form.Control type="text" placeholder="Enter Email" onInput={this.emailHandler} required={true}/>
         </Form.Group>
         <Button type="submit" onClick={this.infoHandler}>Login</Button>
       </Form>

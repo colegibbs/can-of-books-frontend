@@ -4,9 +4,9 @@ import { Form, Button } from 'react-bootstrap';
 class LoginForm extends Component {
   constructor(props){
     super(props);
-    this.State = {
-      username: '',
-      email: '',
+    this.state = {
+      username: 'guest',
+      email: 'guest',
     }
   }
 
@@ -25,6 +25,7 @@ class LoginForm extends Component {
 
   infoHandler =(e) => {
     e.preventDefault();
+    
     this.props.loginFormHandler(this.state.username, this.state.email);
   }
 
@@ -32,18 +33,19 @@ class LoginForm extends Component {
     /* TODO: create a simple login form that collects username and and email, and lets parent component know when form has been submitted */
     return (
       <Form>
-        <Form.Group controlId='username'>
-          <Form.Label>
+        <Form.Group controlId='username' >
+          <Form.Label  >
             Username
           </Form.Label>
-          <Form.Control type="text" placeholder="Enter Username" onInput={this.usernameHandler} required={true}/>
+          <Form.Control type="text" placeholder="Enter Username" onInput={this.usernameHandler} />
         </Form.Group>
 
         <Form.Group controlId='email'>
           <Form.Label>
             Email
           </Form.Label>
-          <Form.Control type="text" placeholder="Enter Email" onInput={this.emailHandler} required={true}/>
+          <Form.Control type="text" placeholder="Enter Email" onInput={this.emailHandler} />
+
         </Form.Group>
         <Button type="submit" onClick={this.infoHandler}>Login</Button>
       </Form>

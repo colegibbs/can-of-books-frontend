@@ -11,7 +11,12 @@ class DeleteBookButton extends React.Component{
   render(){
 
     return (
-      <Button onClick={this.handleDelete}>Delete a Book</Button>
+      this.props.loggedIn
+        ?
+        <Button variant="danger" onClick={this.handleDelete}>Delete a Book</Button>
+        :
+        ''
+      
     ) 
   }
 }

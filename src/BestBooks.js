@@ -67,10 +67,6 @@ class BestBooks extends React.Component {
             }
               <p>{book.email}</p>
             </Carousel.Caption>
-            <DeleteBookButton 
-            deleteBook={this.props.deleteBook}
-            id={book._id}
-            />
           </Carousel.Item>
                  
         )
@@ -78,14 +74,15 @@ class BestBooks extends React.Component {
 
   let deleteButtons = this.props.books.map((book, idx)=> {
     return(
-      <li key={idx}>
-      <p>{book.title}</p>
-      <DeleteBookButton 
-      deleteBook={this.props.deleteBook}
-      id={book._id}
-      />
-
-    </li>
+      <li key={idx} className='row' >
+        <p className='col'>{book.title}</p>
+        <DeleteBookButton 
+        className='col'
+        deleteBook={this.props.deleteBook}
+        id={book._id}
+        loggedIn={this.props.loggedIn}
+        />
+      </li>
     )
   })
 
@@ -95,7 +92,8 @@ class BestBooks extends React.Component {
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
       {this.props.books.length > 0 
-      ?        
+      ?      
+
         <Carousel>
           {books}
         </Carousel>
@@ -107,7 +105,8 @@ class BestBooks extends React.Component {
       {this.props.books.length > 0 
       ?        
 
-        <ul>
+        <ul style={{width: 300}} >
+          <h2>Manage Books</h2>
           {deleteButtons}
         </ul>
 

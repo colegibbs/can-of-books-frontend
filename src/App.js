@@ -21,24 +21,15 @@ class App extends React.Component {
     this.state = {
       books:[],
       user: null,
-      userName: '',
-      email: '',
+      userName: null,
+      email: null,
       loginForm: false,
       showBookForm: false,
+      loggedIn: false
+      
     }
   }
 
-  getBooks = async () => {
-    try {
-      let url = `${process.env.REACT_APP_SERVER}/books`
-      let books = await axios.get(url);
-      this.setState({
-        books: books.data,
-      })
-    } catch(error) {
-      console.log(error);
-    }
-  }
 
   loginHandler = (user) => {
     this.setState({
@@ -50,13 +41,18 @@ class App extends React.Component {
   logoutHandler = () => {
     this.setState({
       user: null,
+      userName: null,
+      email: null
     })
+    console.log(this.state);
   }
 
   loginFormHandler = (userName, email) => {
     this.setState({
       userName: userName,
       email: email,
+      loginForm: false,
+      loggedIn: true
     })
   }
 
@@ -73,6 +69,18 @@ class App extends React.Component {
     })
   }
 
+  getBooks = async () => {
+    try {
+      let url = `${process.env.REACT_APP_SERVER}/books`
+      let books = await axios.get(url);
+      this.setState({
+        books: books.data,
+      })
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
   postBook = async (newBook) => {
     try {
       let url = `${process.env.REACT_APP_SERVER}/books`;
@@ -87,7 +95,7 @@ class App extends React.Component {
 
   deleteBook = async (id) => {
     try{
-      let url = `&{process.env.REACT_APP_SERVER}/books/${id}`;
+      let url = `${process.env.REACT_APP_SERVER}/books/${id}`;
       await axios.delete(url);
       let updatedBooks = this.state.books.filter(book => book._id !== id);
       this.setState({
@@ -104,14 +112,15 @@ class App extends React.Component {
   
 
   render() {
+    console.log(this.state)
     return (
       <>
         <Router>
-          <Header user={this.state.user} onLogout={this.logoutHandler} onLogin={this.loginHandler}/>
+          <Header user      =        {this.state.user} onLogout={this.logoutHandler} onLogin={this.loginHandler}/>
           <BestBooks
            books={this.state.books}
            deleteBook={this.deleteBook}
-           
+           loggedIn={this.state.loggedIn}
            
            />
           <BookFormModal show={this.state.showBookForm} addBookRemove={this.addBookRemove} postBook={this.postBook}/>
@@ -133,8 +142,18 @@ class App extends React.Component {
           :
           ''
           }
-          <p>{this.state.userName}</p>
-          <p>{this.state.email}</p>
+
+          {this.state.loggedIn
+          ?
+          <>
+          <h3>Welcome!</h3>    
+          <p>User: {this.state.userName}</p>
+          <p>User Email: {this.state.email}</p>
+          </>
+          :
+          ''
+          }
+
           {/* <Switch>
             <Route exact path >
 

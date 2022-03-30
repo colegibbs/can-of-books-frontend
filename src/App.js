@@ -136,10 +136,10 @@ class App extends React.Component {
     }
   }
 
-  idAndVForUpdate = (id, v) => {
+  bookForUpdate = (book) => {
     this.setState({
-      id: id,
-      v: v,
+      book: book
+
     });
   }
 
@@ -162,12 +162,12 @@ class App extends React.Component {
            />
           <BookFormModal show={this.state.showBookForm} addBookRemove={this.addBookRemove} postBook={this.postBook}/>
           <UpdateModal 
+            books = {this.state.books}
             show={this.state.showUpdateForm} 
             onHide={this.hideUpdateForm} 
             updateBook={this.updateBook}
-            id={this.state.id}
-            v={this.state.v}
-            idAndVForUpdate={this.idAndVForUpdate}
+            bookForUpdate={this.bookForUpdate}
+            book={this.book}
           />
           <AddBookButton addBookHandler={this.addBookHandler}/>
           <Switch>

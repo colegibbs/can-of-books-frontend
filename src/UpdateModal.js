@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/Button';
 
 class UpdateModal extends React.Component {
 
+
+  
   handleSubmit = (e) => {
     e.preventDefault();
     let updatedBook = {
@@ -12,8 +14,8 @@ class UpdateModal extends React.Component {
       description: e.target.description.value,
       status: e.target.status.checked,
       email: e.target.email.value,
-      id: this.props.id,
-      v: this.props.v
+      _id: this.props.id,
+      __v: this.props.v
     }
     this.props.updateBook(updatedBook);
   }

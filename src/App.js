@@ -156,6 +156,7 @@ class App extends React.Component {
         <Router>
           <Header user={this.state.user} onLogout={this.logoutHandler} onLogin={this.loginHandler}/>
           <BestBooks
+           email={this.state.email}
            books={this.state.books}
            deleteBook={this.deleteBook}
            loggedIn={this.state.loggedIn}

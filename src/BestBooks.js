@@ -38,9 +38,13 @@ class BestBooks extends React.Component {
     })
 
     let deleteButtons = this.props.books.map((book, idx) => {
-      return (
-        <li key={idx} className='row' >
+  
+      return this.props.email === book.email
+        ?
+         (   <li key={idx} className='row' >
           <p className='col'>{book.title}</p>
+      
+          
           <div>
             <DeleteBookButton
               className='col'
@@ -55,9 +59,13 @@ class BestBooks extends React.Component {
               book={book}
               bookForUpdate={this.props.bookForUpdate}
             />
-          </div>
+          </div>         
         </li>
+        
+        
       )
+      :
+      ''
     })
 
     console.log(this.props.books);

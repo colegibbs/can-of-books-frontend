@@ -15,6 +15,11 @@ import AddBookButton from './AddBookButton';
 import axios from 'axios';
 import UpdateModal from './UpdateModal';
 
+import { withAuth0 } from '@auth0/auth0-react';
+import LogoutButtonAutho from './LogoutButton';
+import LoginButtonAutho from './LoginButton';
+
+
 class App extends React.Component {
 
   constructor(props) {
@@ -153,68 +158,85 @@ class App extends React.Component {
     console.log(this.state)
     return (
       <>
-        <Router>
-          <Header user={this.state.user} onLogout={this.logoutHandler} onLogin={this.loginHandler}/>
-          <BestBooks
-           email={this.state.email}
-           books={this.state.books}
-           deleteBook={this.deleteBook}
-           loggedIn={this.state.loggedIn}
-           updateForm={this.updateForm}
-           bookForUpdate={this.bookForUpdate}
-           />
-          <BookFormModal show={this.state.showBookForm} addBookRemove={this.addBookRemove} postBook={this.postBook}/>
-          <UpdateModal 
-            books = {this.state.books}
-            show={this.state.showUpdateForm} 
-            onHide={this.hideUpdateForm} 
-            updateBook={this.updateBook}
-            book={this.state.book}
-          />
-          <AddBookButton addBookHandler={this.addBookHandler}/>
-          <Switch>
-            <Route exact path="/">
-              {/* <BestBooks/> */}
-              {/* TODO: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
-            </Route>
-            <Route exact path="/profile">
-              <Profile/>
-            </Route>
-            {/* TODO: add a route with a path of '/profile' that renders a `Profile` component */}
-          </Switch>
+              <h1>Auth0</h1>
+        {
+          this.props.auth0.isAuthenticated
+            ? <LogoutButtonAutho/>
+            : <LoginButtonAutho/>
+        }
+        {
+          this.props.auth0.isAuthenticated
+            ? <Router>
 
-          {this.state.loginForm
-          ?
-          <LoginForm 
-          userName={this.state.userName}
-          loginFormHandler={this.loginFormHandler}
-          />
-          :
-          ''
-          }
+            <Header user={this.state.user} onLogout={this.logoutHandler} onLogin={this.loginHandler}/>
+            <BestBooks
+             email={this.state.email}
+             books={this.state.books}
+             deleteBook={this.deleteBook}
+             loggedIn={this.state.loggedIn}
+             updateForm={this.updateForm}
+             bookForUpdate={this.bookForUpdate}
+             />
+            <BookFormModal show={this.state.showBookForm} addBookRemove={this.addBookRemove} postBook={this.postBook}/>
+            <UpdateModal 
+              books = {this.state.books}
+              show={this.state.showUpdateForm} 
+              onHide={this.hideUpdateForm} 
+              updateBook={this.updateBook}
+              book={this.state.book}
+            />
+            <AddBookButton addBookHandler={this.addBookHandler}/>
+            <Switch>
+              <Route exact path="/">
+                {/* <BestBooks/> */}
+                {/* TODO: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
+              </Route>
+              <Route exact path="/profile">
+                <Profile/>
+              </Route>
+              {/* TODO: add a route with a path of '/profile' that renders a `Profile` component */}
+            </Switch>
+  
+            {this.state.loginForm
+            ?
+            <LoginForm 
+            userName={this.state.userName}
+            loginFormHandler={this.loginFormHandler}
+            />
+            :
+            ''
+            }
+  
+            {this.state.loggedIn
+            ?
+            <>
+            <h3>Welcome!</h3>    
+            <p>User: {this.state.userName}</p>
+            <p>User Email: {this.state.email}</p>
+            </>
+            :
+            ''
+            }
+  
+            {/* <Switch>
+              <Route exact path >
+  
+              </Route>
+  
+            </Switch> */}
+            <Footer />
+              </Router>
+  
 
-          {this.state.loggedIn
-          ?
-          <>
-          <h3>Welcome!</h3>    
-          <p>User: {this.state.userName}</p>
-          <p>User Email: {this.state.email}</p>
-          </>
-          :
-          ''
-          }
 
-          {/* <Switch>
-            <Route exact path >
 
-            </Route>
 
-          </Switch> */}
-          <Footer />
-        </Router>
+            : <h2>Please Log In</h2>
+        }
       </>
     )
   }
 }
 
-export default App;
+export default withAuth0(App);
+

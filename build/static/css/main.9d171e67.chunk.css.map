@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/Header.css"],"names":[],"mappings":"AAAA,EACE,UACF,CAEA,QACE,aACF","file":"main.9d171e67.chunk.css","sourcesContent":["a{\n  color:#fff;\n}\n\na:hover{\n  color:darkgrey;\n}"]}

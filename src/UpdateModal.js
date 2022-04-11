@@ -29,30 +29,24 @@ class UpdateModal extends React.Component {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={this.handleSubmit}>
-            <Form.Group controlId="title">
+            <Form.Group controlId="title" >
               <Form.Label>
                 Book Title
               </Form.Label>
-              <Form.Control type="text"/>
+              <Form.Control type="text" placeholder={this.props.book.title}/>
             </Form.Group>
 
             <Form.Group controlId="description">
               <Form.Label>
                 Book Description
               </Form.Label>
-              <Form.Control type="text"/>
+              <Form.Control type="text" placeholder={this.props.book.description}/>
             </Form.Group>
 
             <Form.Group controlId="status">
               <Form.Check type="checkbox" label="Read"/>
             </Form.Group>
 
-            <Form.Group controlId="email">
-              <Form.Label>
-                Email
-              </Form.Label>
-              <Form.Control type="email"/>
-            </Form.Group>
             <Button type="submit" variant="dark">Update</Button>
           </Form>
         </Modal.Body>

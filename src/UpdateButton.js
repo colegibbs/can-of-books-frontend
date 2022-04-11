@@ -10,11 +10,7 @@ class UpdateButton extends React.Component {
 
   render(){
     return (
-      this.props.loggedIn
-        ?
         <Button variant="dark" onClick={this.handleClick}>Update Book</Button>
-        :
-        ''
       
     ) 
   }

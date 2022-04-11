@@ -4,13 +4,12 @@ import { Modal, Button, Form } from 'react-bootstrap';
 class BookFormModal extends React.Component{
 
   handleNewBook = (e) => {
-    e.preventDefault();
     console.log(e.target.title.value);
     let newBook = {
       title: e.target.title.value,
       description: e.target.description.value,
       status: e.target.status.checked,
-      email: e.target.email.value,
+      email: this.props.email,
     }
     this.props.postBook(newBook);
   }
@@ -41,13 +40,7 @@ class BookFormModal extends React.Component{
               <Form.Check type="checkbox" label="Read"/>
             </Form.Group>
 
-            <Form.Group controlId="email">
-              <Form.Label>
-                Your Email
-              </Form.Label>
-              <Form.Control type="email" placeholder="Your Email"/>
-            </Form.Group>
-            <Button type="submit" variant="dark">Create Book</Button>
+           <Button type="submit" variant="dark">Create Book</Button>
           </Form>
         </Modal.Body>
       </Modal>

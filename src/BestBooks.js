@@ -1,11 +1,11 @@
 import React from "react";
 import BookFormModal from "./BookFormModal";
 import "bootstrap/dist/css/bootstrap.min.css";
-import AddBookButton from "./AddBookButton";
 import axios from "axios";
 import UpdateModal from "./UpdateModal";
 import { withAuth0 } from "@auth0/auth0-react";
 import { Button, Carousel } from "react-bootstrap";
+import bookshelf from "./bookshelf.jpeg"
 
 // import axios from 'axios';
 import UpdateButton from "./UpdateButton";
@@ -19,7 +19,7 @@ class BestBooks extends React.Component {
       books: [],
       user: null,
       userName: null,
-      email: this.props.auth0.user,
+      email: this.props.auth0.user.email,
       loginForm: false,
       showBookForm: false,
       showUpdateForm: false,
@@ -127,7 +127,7 @@ class BestBooks extends React.Component {
         <Carousel.Item key={idx}>
           <img
             className="d-block w-100"
-            src="https://dummyimage.com/800x400.jpg"
+            src={bookshelf}
             alt="First slide"
           />
           <Carousel.Caption>
@@ -185,6 +185,7 @@ class BestBooks extends React.Component {
           <h3> No Books Found </h3>
         )}
         <Button onClick={this.addBookHandler}>Add Book</Button>
+        <Button onClick={this.getGoogleBooks}>Search</Button>
         <BookFormModal
           email={this.props.auth0.user.email}
           show={this.state.showBookForm}

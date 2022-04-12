@@ -7,7 +7,6 @@ import Profile from "./Profile";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import BestBooks from "./BestBooks";
 import { withAuth0 } from "@auth0/auth0-react";
-import LogoutButtonAutho from "./LogoutButtonAutho";
 import LoginButtonAutho from "./LoginButtonAutho";
 
 class App extends React.Component {
@@ -29,7 +28,7 @@ class App extends React.Component {
     return (
       <>
         {this.props.auth0.isAuthenticated ? (
-          <LogoutButtonAutho />
+          ""
         ) : (
           <LoginButtonAutho />
         )}

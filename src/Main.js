@@ -11,7 +11,8 @@ class Main extends React.Component {
     super(props);
     this.state = {
       query: "",
-      searchedBooks: []
+      searchedBooks: [],
+      books:[]
     };
   }
   getGoogleBooks = async (e) => {
@@ -48,9 +49,10 @@ class Main extends React.Component {
     let newBook = {
       title: element.title,
       description: element.description,
-      status: true,
+      status: false,
       email: this.props.auth0.user.email,
     }
+
     this.postBook(newBook);
   }
   render() {
@@ -58,7 +60,7 @@ class Main extends React.Component {
 
     let renderedBooks = this.state.searchedBooks.map((element, index) => {
       return(
-              <Card className="individual-card" >
+              <Card className="individual-card" key={index} >
         <Card.Body className="real-card-body">
           <Card.Title>{element.title}</Card.Title>
           <Card.Text>
@@ -68,10 +70,10 @@ class Main extends React.Component {
           {element.description}
           </Card.Text>
           <Card.Text>
-          <a class="btn btn-primary" href={element.previewLink} target="_blank" rel="noopener noreferrer">Link to Book</a>
-          {/* <iframe src= {element.previewLink} title="Preview"></iframe>  */}
+          <a class="btn btn-primary" href={element.canonicalVolumeLink} target="_blank" rel="noopener noreferrer">Link to Book</a>
+          {/* <iframe src= {element.canonicalVolumeLink} title={element.canonicalVolumeLink}></iframe>  */}
           </Card.Text>
-          <Button onClick={this.handleNewBook}>Add To Bookshelf</Button>
+          <Button onClick={() => this.handleNewBook(element)}>Add To Bookshelf</Button>
         </Card.Body>
       </Card>
         );
@@ -79,6 +81,7 @@ class Main extends React.Component {
 
     return (
       <>
+      <h2>Hello, {this.props.auth0.user.name}</h2>
               <Container className="search-bar">
           <form >
             <label className="search-label">Find a Book: </label>

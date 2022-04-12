@@ -10,12 +10,12 @@ class UpdateModal extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let updatedBook = {
-      title: e.target.title.value || this.props.book.title,
-      description: e.target.description.value || this.props.book.description,
-      status: e.target.status.checked || this.props.book.status,
-      email: e.target.email.value || this.props.book.email,
-      _id: this.props.book._id,
-      __v: this.props.book.__v
+      title: e.target.title.value || this.props.currentBook.title,
+      description: e.target.description.value || this.props.currentBook.description,
+      status: e.target.status.checked || this.props.currentBook.status,
+      email: this.props.currentBook.email,
+      _id: this.props.currentBook._id,
+      __v: this.props.currentBook.__v
     }
     this.props.updateBook(updatedBook);
     this.props.onHide();
@@ -33,14 +33,14 @@ class UpdateModal extends React.Component {
               <Form.Label>
                 Book Title
               </Form.Label>
-              <Form.Control type="text" placeholder={this.props.book.title}/>
+              <Form.Control type="text" placeholder={this.props.currentBook.title}/>
             </Form.Group>
 
             <Form.Group controlId="description">
               <Form.Label>
                 Book Description
               </Form.Label>
-              <Form.Control type="text" placeholder={this.props.book.description}/>
+              <Form.Control type="text" placeholder={this.props.currentBook.description}/>
             </Form.Group>
 
             <Form.Group controlId="status">

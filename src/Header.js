@@ -12,7 +12,7 @@ class Header extends React.Component {
     return (
       <>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Brand>My Favorite Books</Navbar.Brand>
+        <Navbar.Brand>Digital Bookshelf</Navbar.Brand>
         <NavItem>
 
         {this.props.auth0.isAuthenticated ? (
@@ -25,7 +25,7 @@ class Header extends React.Component {
         </NavItem>
         <NavItem><Link to="/" className="nav-link">Home</Link></NavItem>
         <NavItem><Link to="/profile" className="nav-link">Profile</Link></NavItem>
-        <NavItem><Link to="/BestBooks" className="nav-link">Best Books</Link></NavItem>
+        <NavItem><Link to="/Bookshelf" className="nav-link">Your Bookshelf</Link></NavItem>
       </Navbar>
 
       </>

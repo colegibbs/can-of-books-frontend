@@ -5,7 +5,7 @@ import Main from "./Main";
 import Footer from "./Footer";
 import Profile from "./Profile";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import BestBooks from "./BestBooks";
+import BestBooks from "./Bookshelf";
 import { withAuth0 } from "@auth0/auth0-react";
 import LoginButtonAutho from "./LoginButtonAutho";
 
@@ -42,7 +42,7 @@ class App extends React.Component {
                 <Main />
               </Route>
 
-              <Route exact path="/BestBooks">
+              <Route exact path="/Bookshelf">
                 <BestBooks />
               </Route>
 

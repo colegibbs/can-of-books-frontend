@@ -12,10 +12,11 @@ import UpdateButton from "./UpdateButton";
 
 // let SERVER = process.env.REACT_APP_SERVER;
 
-class BestBooks extends React.Component {
+class Bookshelf extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentBook:{},
       books: [],
       user: null,
       userName: null,
@@ -64,7 +65,7 @@ class BestBooks extends React.Component {
     }
   };
 
-  deleteBook = async (id) => {
+  deleteBook = async (id,) => {
     try {
       let url = `${process.env.REACT_APP_SERVER}/books/${id}`;
       await axios.delete(url);
@@ -107,20 +108,18 @@ class BestBooks extends React.Component {
 
   bookForUpdate = (book) => {
     this.setState({
-      book: book,
+      currentBook: book,
+      
     });
   };
 
   componentDidMount() {
     this.getBooks();
   }
-  handleClick = () => {
-    this.bookForUpdate(this.props.book);
-    this.updateForm();
-  };
+
 
   render() {
-    console.log(this.state.books);
+    console.log(this.state);
     let books = this.state.books.map((book, idx) => {
       return book.email === this.props.auth0.user.email 
       ?(
@@ -138,8 +137,8 @@ class BestBooks extends React.Component {
             <p>{book.email}</p>
             <UpdateButton
               updateForm={this.updateForm}
-              loggedIn={this.loggedIn}
               book={book}
+              currentBook={this.state.book}
               bookForUpdate={this.bookForUpdate}
             />
             <Button variant="danger" onClick={() => this.deleteBook(book._id)}>
@@ -153,6 +152,7 @@ class BestBooks extends React.Component {
             onHide={this.hideUpdateForm}
             updateBook={this.updateBook}
             book={book}
+            currentBook={this.state.currentBook}
           />
         </Carousel.Item>
       ) 
@@ -165,6 +165,7 @@ class BestBooks extends React.Component {
       return (
         <li key={idx} className="row">
           <p className="col">{book.title}</p>
+          
         </li>
       );
     });
@@ -173,8 +174,6 @@ class BestBooks extends React.Component {
       <>
         {this.state.books.length > 0 ? (
           <>
-            <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-
             <Carousel>{books} </Carousel>
             <ul style={{ width: 300 }}>
               <h2> Manage Books </h2>
@@ -184,8 +183,7 @@ class BestBooks extends React.Component {
         ) : (
           <h3> No Books Found </h3>
         )}
-        <Button onClick={this.addBookHandler}>Add Book</Button>
-        <Button onClick={this.getGoogleBooks}>Search</Button>
+        <Button onClick={this.addBookHandler}>Add book outside of Google Books</Button>
         <BookFormModal
           email={this.props.auth0.user.email}
           show={this.state.showBookForm}
@@ -197,4 +195,4 @@ class BestBooks extends React.Component {
   }
 }
 
-export default withAuth0(BestBooks);
+export default withAuth0(Bookshelf);

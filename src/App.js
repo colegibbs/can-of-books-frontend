@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import BestBooks from "./Bookshelf";
 import { withAuth0 } from "@auth0/auth0-react";
 import LoginButtonAutho from "./LoginButtonAutho";
+import "./main.css";
 
 class App extends React.Component {
   constructor(props) {
@@ -25,16 +26,14 @@ class App extends React.Component {
   }
 
   render() {
+
     return (
       <>
-        {this.props.auth0.isAuthenticated ? (
-          ""
-        ) : (
-          <LoginButtonAutho />
-        )}
+    
+        {this.props.auth0.isAuthenticated ? "" : <LoginButtonAutho />}
+
         {this.props.auth0.isAuthenticated ? (
           <Router>
-
             <Header />
 
             <Switch>
@@ -49,15 +48,14 @@ class App extends React.Component {
               <Route exact path="/profile">
                 <Profile />
               </Route>
-
             </Switch>
 
             <Footer />
-
           </Router>
         ) : (
-          <h2>Please Log In</h2>
+          <h2 className="text-align-center">Please Log In</h2>
         )}
+   
       </>
     );
   }

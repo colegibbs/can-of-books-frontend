@@ -4,8 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import UpdateModal from "./UpdateModal";
 import { withAuth0 } from "@auth0/auth0-react";
-import { Button, Carousel } from "react-bootstrap";
-import bookshelf from "./bookshelf.jpeg"
+import { Button, Carousel, Container } from "react-bootstrap";
+import bookshelf from "./imgs/bookshelf.jpeg";
 
 // import axios from 'axios';
 import UpdateButton from "./UpdateButton";
@@ -16,7 +16,7 @@ class Bookshelf extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentBook:{},
+      currentBook: {},
       books: [],
       user: null,
       userName: null,
@@ -65,7 +65,7 @@ class Bookshelf extends React.Component {
     }
   };
 
-  deleteBook = async (id,) => {
+  deleteBook = async (id) => {
     try {
       let url = `${process.env.REACT_APP_SERVER}/books/${id}`;
       await axios.delete(url);
@@ -109,7 +109,6 @@ class Bookshelf extends React.Component {
   bookForUpdate = (book) => {
     this.setState({
       currentBook: book,
-      
     });
   };
 
@@ -117,35 +116,75 @@ class Bookshelf extends React.Component {
     this.getBooks();
   }
 
-
   render() {
     console.log(this.state);
     let books = this.state.books.map((book, idx) => {
-      return book.email === this.props.auth0.user.email 
-      ?(
+      return book.email === this.props.auth0.user.email ? (
         <Carousel.Item key={idx}>
-          <img
-            className="d-block w-100"
-            src={bookshelf}
-            alt="First slide"
-          />
-          <Carousel.Caption>
-            <h3>{book.title}</h3>
+          <img 
+          className="w-100" 
+          src={bookshelf} 
+          height= "600px"
+          alt="First slide" />
 
-            <p>{book.description}</p>
+          <Carousel.Caption 
+          className="bg-secondary text-white"
+          style={{
+            opacity: .8,
+            borderRadius: 10,
+            padding: 9,
+            marginBottom: 17,
+          }}
+          >
+            <h4
+            style={{
+              height: "6vh",
+              overflow: "auto"
+            }}
+            >{book.title}</h4>
+            
+            <p>{book.author}</p>
+
+            <p 
+            className="overflow-auto"
+            style={{
+              position: "relative",
+              left:" 10%",
+              top:" 10%",
+              height: "30vh",
+              width: "80%",
+              background: "white",
+              color:"black",
+              padding: 10,
+          
+            }}
+            >{book.description}
+            </p>
+
             {book.status ? <p>Read🧑‍🏫</p> : <p>Haven't Read yet 🚫</p>}
-            <p>{book.email}</p>
+
+            <a
+                className="btn btn-primary"
+                href={book.canonicalVolumeLink}
+                target="_blank"
+                rel="noopener noreferrer"
+            > View on Google Books™ 
+            </a>
+
+            <div>
             <UpdateButton
               updateForm={this.updateForm}
               book={book}
               currentBook={this.state.book}
               bookForUpdate={this.bookForUpdate}
             />
-            <Button variant="danger" onClick={() => this.deleteBook(book._id)}>
+            
+            <Button variant="danger" size='sm' onClick={() => this.deleteBook(book._id)}>
               Delete a Book
             </Button>
+            </div>
           </Carousel.Caption>
-          <Carousel.Caption></Carousel.Caption>
+
           <UpdateModal
             books={this.state.books}
             show={this.state.showUpdateForm}
@@ -155,35 +194,44 @@ class Bookshelf extends React.Component {
             currentBook={this.state.currentBook}
           />
         </Carousel.Item>
-      ) 
-      :(
+      ) : (
         ""
       );
     });
 
-    let deleteButtons = this.state.books.map((book, idx) => {
-      return (
-        <li key={idx} className="row">
-          <p className="col">{book.title}</p>
-          
-        </li>
-      );
-    });
 
     return (
       <>
+      <div
+        style={{
+          paddingTop: "3vh",
+          paddingBottom: "5vh",
+          height: "100%"
+        }}
+      >
         {this.state.books.length > 0 ? (
           <>
-            <Carousel>{books} </Carousel>
-            <ul style={{ width: 300 }}>
-              <h2> Manage Books </h2>
-              {deleteButtons}
-            </ul>
+            <Carousel
+            style={{
+              height: "100%",
+              paddingTop: "3vh",
+              position: "relative",
+              
+            }}
+            > {books} </Carousel>
           </>
         ) : (
           <h3> No Books Found </h3>
         )}
-        <Button onClick={this.addBookHandler}>Add book outside of Google Books</Button>
+
+        <Button 
+        className="w-100"
+        onClick={this.addBookHandler}
+        variant="outline-primary"
+        >
+          Add book outside of Google Books
+        </Button>
+        </div>
         <BookFormModal
           email={this.props.auth0.user.email}
           show={this.state.showBookForm}

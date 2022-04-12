@@ -14,6 +14,8 @@ class UpdateModal extends React.Component {
       description: e.target.description.value || this.props.currentBook.description,
       status: e.target.status.checked || this.props.currentBook.status,
       email: this.props.currentBook.email,
+      author: this.props.currentBook.author,
+      canonicalVolumeLink: this.props.currentBook.canonicalVolumeLink,
       _id: this.props.currentBook._id,
       __v: this.props.currentBook.__v
     }
@@ -31,9 +33,16 @@ class UpdateModal extends React.Component {
           <Form onSubmit={this.handleSubmit}>
             <Form.Group controlId="title" >
               <Form.Label>
-                Book Title
+                Title
               </Form.Label>
               <Form.Control type="text" placeholder={this.props.currentBook.title}/>
+            </Form.Group>
+
+            <Form.Group controlId="author" >
+              <Form.Label>
+                Author
+              </Form.Label>
+              <Form.Control type="text" placeholder={this.props.currentBook.author}/>
             </Form.Group>
 
             <Form.Group controlId="description">

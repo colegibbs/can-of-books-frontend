@@ -10,7 +10,7 @@ class UpdateButton extends React.Component {
 
   render(){
     return (
-        <Button variant="dark" onClick={this.handleClick}>Update Book</Button>
+        <Button variant="dark" size='sm' onClick={this.handleClick}>Update Book</Button>
       
     ) 
   }

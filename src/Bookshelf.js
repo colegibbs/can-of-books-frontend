@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import UpdateModal from "./UpdateModal";
 import { withAuth0 } from "@auth0/auth0-react";
-import { Button, Carousel, Container } from "react-bootstrap";
+import { Button, Carousel, } from "react-bootstrap";
 import bookshelf from "./imgs/bookshelf.jpeg";
 
 // import axios from 'axios';

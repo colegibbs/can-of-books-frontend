@@ -10,14 +10,12 @@ class UpdateModal extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let updatedBook = {
-      title: e.target.title.value || this.props.currentBook.title,
-      description: e.target.description.value || this.props.currentBook.description,
-      status: e.target.status.checked || this.props.currentBook.status,
-      email: this.props.currentBook.email,
-      author: this.props.currentBook.author,
-      canonicalVolumeLink: this.props.currentBook.canonicalVolumeLink,
-      _id: this.props.currentBook._id,
-      __v: this.props.currentBook.__v
+      title: e.target.title.value || this.props.book.title,
+      description: e.target.description.value || this.props.book.description,
+      status: e.target.status.checked || this.props.book.status,
+      email: e.target.email.value || this.props.book.email,
+      _id: this.props.book._id,
+      __v: this.props.book.__v
     }
     this.props.updateBook(updatedBook);
     this.props.onHide();
@@ -31,31 +29,30 @@ class UpdateModal extends React.Component {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={this.handleSubmit}>
-            <Form.Group controlId="title" >
+            <Form.Group controlId="title">
               <Form.Label>
-                Title
+                Book Title
               </Form.Label>
-              <Form.Control type="text" placeholder={this.props.currentBook.title}/>
-            </Form.Group>
-
-            <Form.Group controlId="author" >
-              <Form.Label>
-                Author
-              </Form.Label>
-              <Form.Control type="text" placeholder={this.props.currentBook.author}/>
+              <Form.Control type="text"/>
             </Form.Group>
 
             <Form.Group controlId="description">
               <Form.Label>
                 Book Description
               </Form.Label>
-              <Form.Control type="text" placeholder={this.props.currentBook.description}/>
+              <Form.Control type="text"/>
             </Form.Group>
 
             <Form.Group controlId="status">
               <Form.Check type="checkbox" label="Read"/>
             </Form.Group>
 
+            <Form.Group controlId="email">
+              <Form.Label>
+                Email
+              </Form.Label>
+              <Form.Control type="email"/>
+            </Form.Group>
             <Button type="submit" variant="dark">Update</Button>
           </Form>
         </Modal.Body>
